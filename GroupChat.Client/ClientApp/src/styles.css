@@ -1,0 +1,53 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.group {
+  padding: 13px;
+  border-radius: 12px;
+  background: rgb(57, 125, 192);
+  margin: 5px 0px;
+  font-weight: bolder;
+  color: black;
+  cursor: pointer;
+}
+
+.chat_body {
+  height: 520px;
+  overflow: auto;
+}
+
+.less_padding {
+  padding: 2px;
+}
+
+.chat_message {
+  padding: 13px;
+  border-radius: 12px;
+  width: 50%;
+  background: #85C1E9;
+  margin: 6px 4px;
+}
+
+.chat_main {
+  background-color: #957bbe;
+  height: 520;
+  padding: 0px;
+}
+
+.group_main {
+  background-color: #85C1E9;
+}

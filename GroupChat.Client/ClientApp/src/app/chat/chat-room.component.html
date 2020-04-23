@@ -1,0 +1,80 @@
+<div class="container">
+  <a class="navbar-brand">Hello {{loggedInUserName}}</a>
+  <button class="btn btn-primary float-right" (click)="Logout()">Logout</button>
+</div>
+<div class="container" style="background-color: grey;">
+  <div class="row">
+    <div class="col-md-2 less_padding">
+      <div class="col group_main">
+        <div class="text-center"> Groups </div>
+        <input type="hidden" value="" id="currentGroup">
+        <div clsss="row" style="height: 500px;overflow: auto;" id="groups">
+          <div class="group" *ngFor="let userGp of AllGroups | keyvalue" data-id="{{userGp.value.Id}}" (click)="selectGroup(userGp);">
+            {{userGp.value.groupName}}
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#CreateNewGroup">Add Group</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10 less_padding">
+      <div class="col-md-12 chat_main">
+        <div id="chat_container" class="chat_body">
+          <label *ngIf="!IsUserInGroup" class="form-check-label" for="Users">Please Select and Join the Group to Send or View Messages.</label>
+          <div class="row chat_message" [ngClass]="{'float-right': message.value.addedBy == loggedInUserName}" *ngFor="let message of Messages | keyvalue"><b>{{message.value.addedBy}}: </b>{{message.value.textMessage}}</div>
+        </div>
+        <div class="row container" style="margin-left: 3px;">
+          <div class="col-md-9 col-sm-9 less_padding">
+            <textarea *ngIf="IsUserInGroup && IsButtonVisible" class="form-control" rows="1" id="Message"></textarea>
+          </div>
+          <div class="col-md-1 col-sm-2 less_padding">
+            <button *ngIf="IsUserInGroup && IsButtonVisible" type="submit" class="btn btn-primary" style=" position: absolute;" (click)="SendMessage();" id="SendMessage">Send</button>
+          </div>
+          <div class="col-md-1 col-sm-2 less_padding">
+            <button *ngIf="IsUserInGroup && IsButtonVisible" type="submit" class="btn btn-primary" style=" position: absolute;" (click)="LeaveGroup();" id="LeaveGroup">Leave</button>
+          </div>
+          <div class="col-md-1 col-sm-2 less_padding">
+            <button *ngIf="!IsUserInGroup && IsButtonVisible" type="submit" class="btn btn-primary" style=" position: absolute;"  (click)="JoinGroup();" id="JoinGroup">Join</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="CreateNewGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add New Group</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="CreateGroupForm">
+          <div class="form-group">
+            <label for="GroupName">Group Name</label>
+            <input type="text" class="form-control" name="GroupName" required id="GroupName" aria-describedby="emailHelp" placeholder="Group Name">
+            <div *ngIf="IsError" style="width:100%;margin-top:auto;font-size:80%;color:#dc3545">{{ErrorMessage}}</div>
+          </div>
+          <!--<label for="User">Add Users <br></label> <br>
+          <div class="row">
+            <div class="col-4" *ngFor="let user of Users | keyvalue">
+              <div class="form-check">
+                <input type="checkbox" value="{{user.value.userName}}" name="UserName[]">
+                <label class="form-check-label" for="Users">{{user.value.userName}}</label>
+              </div>
+            </div>
+          </div>-->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!--<button type="button" class="btn btn-primary" (click)="CreateNewGroup();">Create Group</button>-->
+        <button type="button" class="btn btn-primary" (click)="CreateGroup();">Create Group</button>
+      </div>
+    </div>
+  </div>
+</div>
